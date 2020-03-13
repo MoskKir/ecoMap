@@ -4,8 +4,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/dark-v10',
-            center: [-120, 50],
-            zoom: 2
+            center: [27.56667, 53.9000],
+            zoom: 15
         });
 
         map.on('load', function () {
@@ -14,7 +14,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra
             map.addSource('earthquakes', {
                 'type': 'geojson',
                 'data':
-                    'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson'
+                    // 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson'
+                    './data.json'
             });
 
             map.addLayer(
