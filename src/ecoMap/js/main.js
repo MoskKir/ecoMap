@@ -1,3 +1,5 @@
+const json = require('../jsonDATA/data.json');
+
 mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra2R3NXViIn0.d4xMxIrtPiJpOMbMW3XXLw';
 // pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra2R3NXViIn0.d4xMxIrtPiJpOMbMW3XXLw
 // token for URL with GITHUB pk.eyJ1IjoibW9za2tpciIsImEiOiJjazdwenAycDgwMDJrM2duMXlxY2wyb212In0.1A3TicZXFlulWa55US7ONQ
@@ -5,7 +7,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra
             container: 'map',
             style: 'mapbox://styles/mapbox/dark-v10',
             center: [27.56667, 53.9000],
-            zoom: 15
+            zoom: 10
         });
 
         map.on('load', function () {
@@ -15,7 +17,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra
                 'type': 'geojson',
                 'data':
                     // 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson'
-                    './data.json'
+                    // 'https://raw.githubusercontent.com/MoskKir/ecoMap/master/src/ecoMap/jsonDATA/data.json'
+                    json
+                    
             });
 
             map.addLayer(
