@@ -11,10 +11,24 @@
                 "felt": null, 
                 "tsunami": 0 
         }, 
-        "geometry": { 
-            "type": "Point", 
-            "coordinates": [ 27.56667, 53.9000, 7.64 ] 
-            } 
-        }    
+            "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 27.56667, 53.9000, 7.64 ] 
+                } 
+        },  
+        { 
+            "type": "Feature", 
+            "properties": { 
+                "id": "ak16994521", 
+                "mag": 2.3, 
+                "time": 1507425650893, 
+                "felt": null, 
+                "tsunami": 0 
+        }, 
+            "geometry": { 
+                "type": "Point", 
+                "coordinates": [ 27.6310658, 53.9273582, 7.64 ] 
+                } 
+        }  
     ]
 }
