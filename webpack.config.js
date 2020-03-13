@@ -144,7 +144,7 @@ const config = {
             outputPath: 'fonts'
           }
         }]
-      }
+      },
       {
         test: /\.json$/,
         loader: 'json-loader'
