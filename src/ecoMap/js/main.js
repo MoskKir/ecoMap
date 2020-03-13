@@ -1,4 +1,4 @@
-const json = require('../jsonDATA/data.json');
+const jsonData = require('../jsonDATA/data.json');
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra2R3NXViIn0.d4xMxIrtPiJpOMbMW3XXLw';
 // pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra2R3NXViIn0.d4xMxIrtPiJpOMbMW3XXLw
@@ -10,7 +10,43 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra
             zoom: 10
         });
 
-        map.on('load', function () {
+        // Create a popup, but don't add it to the map yet.
+        var popup = new mapboxgl.Popup({
+            closeButton: false
+            });
+        console.log(popup)
+
+        var overlay = document.getElementById('map-overlay');
+        console.log(overlay)
+
+        map.on('mousemove', function(e) {
+                // console.log(e)
+                document.getElementById('info').innerHTML =
+                // e.point is the x, y coordinates of the mousemove event relative
+                // to the top-left corner of the map
+                JSON.stringify(e.point) +
+                '<br />' +
+                // e.lngLat is the longitude, latitude geographical position of the event
+                JSON.stringify(e.lngLat.wrap());
+            });
+
+        map.on('load', function () {            
+            map.setLayoutProperty('country-label', 'text-field', [
+                'get',
+                'name_ru'
+            ]);
+            console.log(this)
+
+            var title = document.createElement('strong');
+                title.textContent = `hello world`
+                
+            var population = document.createElement('div');
+                population.textContent = 'Total population: ';
+                
+            overlay.appendChild(title);
+            overlay.appendChild(population);
+            overlay.style.display = 'block';
+
             // Add a geojson point source.
             // Heatmap layers also work with a vector tile source.
             map.addSource('earthquakes', {
@@ -18,10 +54,11 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra
                 'data':
                     // 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson'
                     // 'https://raw.githubusercontent.com/MoskKir/ecoMap/master/src/ecoMap/jsonDATA/data.json'
-                    json
+                    jsonData
                     
             });
 
+            console.log(jsonData)
             map.addLayer(
                 {
                     'id': 'earthquakes-heat',
@@ -36,7 +73,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra
                             ['get', 'mag'],
                             0,
                             0,
-                            6,
+                            5,
                             1
                         ],
                         // Increase the heatmap color weight weight by zoom level
