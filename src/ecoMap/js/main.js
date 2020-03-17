@@ -1,4 +1,4 @@
-const jsonData = require('../jsonDATA/data.json');
+import jsonData from '../jsonDATA/data.json';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra2R3NXViIn0.d4xMxIrtPiJpOMbMW3XXLw';
 // pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra2R3NXViIn0.d4xMxIrtPiJpOMbMW3XXLw
@@ -12,40 +12,118 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra
 
         // Create a popup, but don't add it to the map yet.
         var popup = new mapboxgl.Popup({
-            closeButton: false
+                closeButton: false
             });
         console.log(popup)
 
         var overlay = document.getElementById('map-overlay');
-        console.log(overlay)
 
-        map.on('mousemove', function(e) {
-                // console.log(e)
-                document.getElementById('info').innerHTML =
-                // e.point is the x, y coordinates of the mousemove event relative
-                // to the top-left corner of the map
-                JSON.stringify(e.point) +
-                '<br />' +
-                // e.lngLat is the longitude, latitude geographical position of the event
-                JSON.stringify(e.lngLat.wrap());
+        fetch(jsonData)
+                .then(data => data.json())
+                .then(data => {
+                    // console.log(data)
+                    const arrFeatures = data.features
+                    addPopupLogic(arrFeatures)
+                })
+
+        function addPopupLogic(arrFeatures) {
+            console.log(arrFeatures)
+            const arrCoordinats = []
+            arrFeatures.forEach(element => {
+                const result = []
+                result.push(element.geometry.coordinates)
+                result.push(element.properties.id)
+                arrCoordinats.push(result.flat())
             });
+            
+            console.log('Массив координат ', arrCoordinats)
+            
+            
+            let title = document.createElement('strong');
+                title.innerHTML = ``
+
+                // roperties": {
+                //     "id": "ak16994523",
+                //     "mag": 2.3,
+                //     "benzol": 0.01,
+                //     "ksilol": 0.04,
+                //     "nitrogendioxideconcent": 0,
+                //     "so2": 0.05,
+                //     "toluol": 0,
+                //     "time": 1507425650893,
+                //     "felt": null,
+                //     "tsunami": 0
+            let benzolContainer = document.createElement('div')
+                benzolContainer.innerHTML = 'Бензол'
+            let ksilolContainer = document.createElement('div')
+                ksilolContainer.innerHTML = 'Ксилол'
+                        
+            let population = document.createElement('div');
+                population.innerHTML = ''
+
+            console.log(arrFeatures)
+            map.on('mousemove', function(e) {
+                    // console.log(e)
+                    title.textContent = ``
+                    benzolContainer.textContent = `Бензол: `
+                    ksilolContainer.textContent = `Ксилол: `
+                    population.textContent = ``;
+
+                    document.getElementById('info').innerHTML =
+                    JSON.stringify(e.point) +
+                    '<br />' +
+                    JSON.stringify(e.lngLat.wrap());
+    
+                    // console.log(e.lngLat.lng)
+                    // console.log(e.lngLat.lat)
+
+                    let lngFromJSON = e.lngLat.lng.toFixed(2)
+                    let latFromJSON = e.lngLat.lat.toFixed(2)
+                    
+                    arrFeatures.forEach((val, index) => {
+                        // console.log('val ',val)
+                        if (val.geometry.coordinates[0].toFixed(2) === lngFromJSON && val.geometry.coordinates[1].toFixed(2) === latFromJSON) {
+                            
+                            // console.log(arrCoordinats[index][2])
+                            console.log(val.properties)
+                            
+                            title.textContent = `${val.properties.id}`
+                            benzolContainer.textContent = `Бензол: ${val.properties.benzol || 'Нет данных'}`
+                            ksilolContainer.textContent = `Ксилол: ${val.properties.ksilol || 'Нет данных'}`
+                            population.textContent = 'Total population: ';
+                                
+                            overlay.appendChild(title);
+                            overlay.appendChild(benzolContainer);
+                            overlay.appendChild(ksilolContainer);
+                            
+
+                            overlay.appendChild(population);
+                            overlay.style.display = 'block';
+
+                            popup
+                                .setLngLat(e.lngLat)
+                                .setText(arrCoordinats[index][2])
+                                .addTo(map);
+                            
+
+                        } else {
+                            popup.remove();
+                        }
+                    })
+
+    
+                    
+                });
+
+            
+        }
+
 
         map.on('load', function () {            
             map.setLayoutProperty('country-label', 'text-field', [
                 'get',
                 'name_ru'
             ]);
-            console.log(this)
-
-            var title = document.createElement('strong');
-                title.textContent = `hello world`
-                
-            var population = document.createElement('div');
-                population.textContent = 'Total population: ';
-                
-            overlay.appendChild(title);
-            overlay.appendChild(population);
-            overlay.style.display = 'block';
 
             // Add a geojson point source.
             // Heatmap layers also work with a vector tile source.
@@ -58,7 +136,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra
                     
             });
 
-            console.log(jsonData)
+            // console.log(jsonData)
+            
+
             map.addLayer(
                 {
                     'id': 'earthquakes-heat',
