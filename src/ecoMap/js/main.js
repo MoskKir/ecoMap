@@ -1,4 +1,5 @@
 import jsonData from '../jsonDATA/data.json';
+// import jsonData from 'https://raw.githubusercontent.com/MoskKir/ecoMap/master/src/ecoMap/jsonDATA/data.json'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra2R3NXViIn0.d4xMxIrtPiJpOMbMW3XXLw';
 // pk.eyJ1IjoibW9za2tpciIsImEiOiJjazNoZTAwcTgwYXJiM2JxdDJra2R3NXViIn0.d4xMxIrtPiJpOMbMW3XXLw
@@ -18,7 +19,7 @@ console.log(popup)
 
 var overlay = document.getElementById('map-overlay');
 
-fetch(jsonData)
+fetch('https://raw.githubusercontent.com/MoskKir/ecoMap/master/src/ecoMap/jsonDATA/data.json')
     .then(data => data.json())
     .then(data => {
         // console.log(data)
