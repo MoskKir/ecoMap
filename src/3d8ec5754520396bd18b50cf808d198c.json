@@ -1,0 +1,72 @@
+{
+    "type": "FeatureCollection",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "ak16994521",
+                "mag": 2.3,
+                "time": 1507425650893,
+                "felt": null,
+                "tsunami": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.56667,
+                    53.9000
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "ak16994522",
+                "mag": 2.3,
+                "benzol": 0.01,
+                "ksilol": 0.04,
+                "nitrogendioxideconcent": 0,
+                "so2": 0.05,
+                "toluol": 0,
+                "time": 1507425650893,
+                "felt": null,
+                "tsunami": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.6310658,
+                    53.9273582
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "ak16994523",
+                "mag": 2.3,
+                "benzol": 0.01,
+                "ksilol": 0.04,
+                "nitrogendioxideconcent": 0,
+                "so2": 0.05,
+                "toluol": 0,
+                "time": 1507425650893,
+                "felt": null,
+                "tsunami": 0
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.8310658,
+                    53.8373582
+                ]
+            }
+        }
+    ]
+}
