@@ -19,7 +19,7 @@ console.log(popup)
 
 var overlay = document.getElementById('map-overlay');
 
-fetch('https://raw.githubusercontent.com/MoskKir/ecoMap/master/src/ecoMap/jsonDATA/data.json')
+fetch('https://moskkir.github.io/ecoMap/dist/3d8ec5754520396bd18b50cf808d198c.json')
     .then(data => data.json())
     .then(data => {
         // console.log(data)
